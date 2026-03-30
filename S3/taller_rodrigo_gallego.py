@@ -24,6 +24,8 @@ from datetime import datetime
 
 print("----- Iniciando el pseudoagente estilo consola -------")
 
+type Recuerdo = dict[str, str]
+type MemoriaAgente = list[Recuerdo]
 
 # Login básico
 usuario = input("Usuario: ").strip()
@@ -56,7 +58,7 @@ print(f"Bienvenido, {usuario}.")
 
 #Banderas/Banderines - Booleanos 
 #TO-DO: Agregar una memoria al pseudo agente utilizando listas y diccionarios   
-historial_chat=[] 
+historial_chat: MemoriaAgente = [] 
 mensaje = ""
 comando_valido = True # Se agrega esta variable para controlar cuando se guarda el log y cuando no
 sistema_activo = True
@@ -176,7 +178,7 @@ Agente: """).strip().lower()
             # Se almacena la entrada de busqueda, se limpian los espacios y se convierte a minusculas para facilitar la búsqueda
             keyword = input("Ingrese la palabra clave para buscar en el historial: ").strip().lower()
             # Se itera sobre el historial_chat para encontrar entradas que contengan la palabra clave "keyword" en el comando o en la descripción, se almacena el resultado en una nueva lista 'resultados'
-            resultados = [entry for entry in historial_chat if keyword in entry['cmd'] or keyword in entry['descripcion']]
+            resultados: MemoriaAgente = [entry for entry in historial_chat if keyword in entry['cmd'] or keyword in entry['descripcion']]
             if resultados:
                 print(f"Resultados de búsqueda para '{keyword}':")
                 for entry in resultados:
@@ -191,7 +193,7 @@ Agente: """).strip().lower()
     
     #TO-DO: Taller de la semana - Búsqueda de memoria
     if comando_valido:
-        d_log = {"timestamp": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        d_log: Recuerdo = {"timestamp": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
                 "cmd": cmd,
                 "rol": rol_actual,
                 "descripcion": mensaje}
