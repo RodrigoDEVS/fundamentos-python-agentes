@@ -7,6 +7,10 @@ type MemoriaAgente = list[Recuerdo]
 
 class PseudoAgente:
     def __init__ (self, usuario: str, rol: str):
+        # Se definen las variables de la clase, las cuales serán válidas para todos los métodos de la misma,
+        # con esto se evita el pasarlas como parámetros en cada función ya que se pueden acceder directamente
+        # a través de 'self'.
+        # a diferencia de las variables locales o temporales que solo existen dentro de la función donde se crean.
         self.usuario = usuario
         self.rol = rol
         self.historial_chat: MemoriaAgente = []
@@ -188,6 +192,9 @@ Agente: """).strip().lower()
             except Exception as e:
                 print(f"[Error] {e}")
 
+# Se genera la clase AgenteAdmin que hereda de PseudoAgente, al aplicar el principio de Herencia de POO
+# evitamos el código repetido y simplemente cambiamos lo que necesitamos que sea diferente
+# en este caso, el método gestionar_historial se redefine para que no consuma tokens.
 class AgenteAdmin(PseudoAgente):
     def __init__(self, usuario: str):
         super().__init__(usuario, "admin")
